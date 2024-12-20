@@ -13,10 +13,10 @@ The application is designed to allow users to create, update, view, and delete n
 ## Technical Design & Architecture
 
 `React.js`: Used to build the user interface. Functional components and hooks (`useState`, `useEffect`, `useContext`, etc.) are used for managing state and side effects.\
-`State Management`: `AuthContext` is used for managing user authentication state globally.
-`Material UI`: Provides the UI components such as `TextField`, `Button`, `Card`, etc., which help to build a responsive and accessible UI.
-`Audio Recording`: `react-mic` is used for recording audio and attaching it to notes.
-`Axios`: Used for making API requests to the backend.
+`State Management`: `AuthContext` is used for managing user authentication state globally.\
+`Material UI`: Provides the UI components such as `TextField`, `Button`, `Card`, etc., which help to build a responsive and accessible UI.\
+`Audio Recording`: `react-mic` is used for recording audio and attaching it to notes.\
+`Axios`: Used for making API requests to the backend.\
 `Jest`: Used for testing.
 
 ## Instructions to Run

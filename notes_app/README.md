@@ -1,6 +1,6 @@
 # Project Overview
 
-This is Django backend part of the note app.
+This is Django backend part of the note app.\
 This project was bootstrapped with [Django](https://www.djangoproject.com/start/).
 
 ## Assumptions
@@ -12,13 +12,13 @@ The application allows users to register, log in, and manage notes, including cr
 
 ## Technical Design & Architecture
 
-`Django`: The backend is built using Django, which handles URL routing, views, and database interaction.
-`Django Rest Framework (DRF)`: Used for creating RESTful APIs for handling CRUD operations for notes and user authentication.
-`JWT Authentication`: Utilized for secure authentication and session management.
-`MySQL`: The database used for storing user data and notes.
-`Models`: The backend contains a User model (built using AbstractBaseUser) for user management and a Note model for managing notes.
-`Views`: API views are built using DRF's APIView and ModelViewSet to handle auth/note operations.
-`Serializers`: Used to convert model instances into JSON format and validate incoming data.
+`Django`: The backend is built using Django, which handles URL routing, views, and database interaction.\
+`Django Rest Framework (DRF)`: Used for creating RESTful APIs for handling CRUD operations for notes and user authentication.\
+`JWT Authentication`: Utilized for secure authentication and session management.\
+`MySQL`: The database used for storing user data and notes.\
+`Models`: The backend contains a User model (built using AbstractBaseUser) for user management and a Note model for managing notes.\
+`Views`: API views are built using DRF's APIView and ModelViewSet to handle auth/note operations.\
+`Serializers`: Used to convert model instances into JSON format and validate incoming data.\
 `CORS`: Enabled to allow frontend (React) and backend (Django) to communicate.
 
 ## Instructions to Run
