@@ -26,7 +26,7 @@ The application allows users to register, log in, and manage notes, including cr
 ### Clone the repository
 
 ```bash
-git clone https://github.com/TopEagle36/note_app_react_django
+git clone https://github.com/TopEagle36/note_app_react_django.git
 cd note_app_react_django/notes_app
 ```
 

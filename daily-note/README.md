@@ -24,7 +24,7 @@ The application is designed to allow users to create, update, view, and delete n
 ### Clone the repository
 
 ```bash
-git clone https://github.com/TopEagle36/note_app_react_django
+git clone https://github.com/TopEagle36/note_app_react_django.git
 cd note_app_react_django/daily-note
 ```
 
