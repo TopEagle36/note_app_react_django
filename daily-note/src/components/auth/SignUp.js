@@ -117,18 +117,12 @@ export default function SignUp(props) {
       return;
     }
     const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-      email: data.get('email'),
-      password: data.get('password'),
-    });
     try {
       const response = await axios.post(server_uri+ "/api/accounts/register/", {
         username: data.get('name'),
         email: data.get('email'),
         password: data.get('password'),
       });
-      console.log("response.data from register", response.data);
       enqueueSnackbar("Successfully registered!", {variant: 'success'});
       navigate('/signin');
       // setMessage(response.data.message);

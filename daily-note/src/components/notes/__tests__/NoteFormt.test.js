@@ -27,7 +27,6 @@ const Wrapper = ({ children }) => (
     </BrowserRouter>
   </AuthProvider>
 );
-
 test('renders NoteForm component and submits form', async () => {
   // Mocking the API response for form submission
   axios.post.mockResolvedValue({ status: 201, data: { id: 1 } });
@@ -42,26 +41,28 @@ test('renders NoteForm component and submits form', async () => {
   // Start the recording (this will be mocked to stop immediately)
   userEvent.click(screen.getByText(/start recording/i));
 
-  // Stop the recording
+  // Stop the recording (trigger onStop immediately)
   userEvent.click(screen.getByText(/stop recording/i));
-
-  // Wait for the form to be submitted (simulate submitting the form)
-  userEvent.click(screen.getByRole('button', { name: /create note/i }));
 
   // Wait for axios mock to resolve and ensure the form submission is handled
   await waitFor(() => expect(axios.post).toHaveBeenCalledTimes(1));
 
+  // Wait for the form submission button to be clicked (ensure the form is submitted before assertions)
+  await userEvent.click(screen.getByRole('button', { name: /create note/i }));
+
   // Check if the API was called with the correct form data
-  expect(axios.post).toHaveBeenCalledWith(
-    expect.stringContaining('/api/notes/notes/'),
-    expect.objectContaining({
-      title: 'Test Note',
-      description: 'This is a test note description.',
-    }),
-    expect.objectContaining({
-      headers: expect.objectContaining({
-        'Content-Type': 'multipart/form-data',
+  await waitFor(() =>
+    expect(axios.post).toHaveBeenCalledWith(
+      expect.stringContaining('/api/notes/notes/'),
+      expect.objectContaining({
+        title: 'Test Note',
+        description: 'This is a test note description.',
       }),
-    })
+      expect.objectContaining({
+        headers: expect.objectContaining({
+          'Content-Type': 'multipart/form-data',
+        }),
+      })
+    )
   );
 });

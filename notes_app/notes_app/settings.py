@@ -84,7 +84,7 @@ DATABASES = {
         'NAME': 'notes',
         'USER': 'root',
         'PASSWORD': '123456',
-        'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '3306',
     }
 }
@@ -166,4 +166,5 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",  # React frontend URL
+    "http://localhost:80"
 ]

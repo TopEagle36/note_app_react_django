@@ -64,7 +64,6 @@ function Notes() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            console.log("delete response", response);
             setNotes(notes.filter((note) => note.id !== id)); // Remove deleted note from the list
             if(response?.status === 204){
                 enqueueSnackbar(`Note deleted successfully!`, {variant: 'success'});
@@ -81,7 +80,8 @@ function Notes() {
     );
 
     return loading ? (
-        <CircularProgress />
+        
+        <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}><CircularProgress /></Box>
     ) : (
         <Container sx={{py: 5}}>
             {/* Search and Create New Note Button */}

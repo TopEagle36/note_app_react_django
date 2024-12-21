@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router';
 import { ReactMic } from 'react-mic';
+import { enqueueSnackbar } from 'notistack';
 import { AuthContext } from '../../context/AuthContext';
 import { server_uri } from '../../config/constant';
 
@@ -15,7 +16,6 @@ import {
     CardActions,
     FormControl,
     FormHelperText,
-    InputLabel,
     CircularProgress,
 } from '@mui/material';
 
@@ -55,7 +55,6 @@ function NoteForm() {
     const handleStopRecording = () => setIsRecording(false);
 
     const handleOnStop = (recordedBlob) => {
-        console.log('Recorded Blob:', recordedBlob);
         setAudioBlob(recordedBlob.blob);
     };
 
@@ -94,9 +93,9 @@ function NoteForm() {
                 );
             }
             if (response?.status === 200 || response?.status === 201) {
+                enqueueSnackbar("Successfully saved on server!", {variant: 'success'});
                 navigate(`/note/view/${response.data.id}`);
             }
-            console.log("response in creating", response);
         } catch (err) {
             console.error('Error saving note:', err);
             setError('An error occurred while saving the note. Please try again.');
