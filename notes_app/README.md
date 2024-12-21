@@ -36,27 +36,50 @@ cd note_app_react_django/notes_app
 pip install -r requirements.txt
 ```
 
-### Install MySQL.
+### Setup MySQL Database.
 
 [Download URL](https://mariadb.org/download/)
 **Note: This version of Django requires a MariaDB version higher than 5.**
+- Set name as `root`
+- Set password as `123456`
+- Set Port as `3306`
+- Change the HOST part as `'localhost'` **Note: HOST: 'db' is for docker and while running without docker, need to change HOST: 'localhost'**
+
+```plaintext
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'notes',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST': 'db', # change this part as 'localhost'
+        'PORT': '3306',
+    }
+}
+```
+
+- Create `notes` db in the database
 
 ### Run DB migrate
 
 ```bash
-python manage.py migrate
+python(or py) manage.py makemigrations
+```
+
+```bash
+python(or py) manage.py migrate
 ```
 
 ### Run test
 
 ```bash
-python manage.py test
+python(or py) manage.py test
 ```
 
 ### Run the server
 
 ```bash
-python manage.py runserver
+python(or py) manage.py runserver
 ```
 
 
