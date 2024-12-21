@@ -2,7 +2,7 @@
 
 This repository demonstrates a full-stack application built using React for the frontend, Django for the backend, and MySQL as the database. The project is Dockerized using Docker Compose for easy setup and management.
 
-**Each of the backend (notes_app) and frontend (daily-note) folders contains its own README file with detailed descriptions.!**
+**Each of the backend (notes_app) and frontend (daily-note) folders contains its own README file with detailed descriptions!**
 
 ## Prerequisites
 
@@ -10,7 +10,7 @@ This repository demonstrates a full-stack application built using React for the 
 `Node.js`.\
 `Python`.\
 `MySQL`.\
-`Git`.\
+`Git`.
 
 ## Project Structure
 
@@ -72,5 +72,5 @@ docker-compose down --volumes
 
 ### Troubleshooting
 
-- Port already in use: If you get an error about a port already being in use (e.g., port 3000), try stopping the process occupying the port or change the port mapping in docker-compose.yml.\
+- Port already in use: If you get an error about a port already being in use (e.g., port 3000), try stopping the process occupying the port or change the port mapping in docker-compose.yml.
 - Database connection error: Ensure that the MySQL container is fully started before running the backend. You can check container logs using docker-compose logs db.
