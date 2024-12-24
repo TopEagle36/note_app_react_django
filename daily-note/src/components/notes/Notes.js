@@ -5,10 +5,6 @@ import { enqueueSnackbar } from 'notistack';
 import { AuthContext } from '../../context/AuthContext';
 import { server_uri } from '../../config/constant';
 
-// MUI Components
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Button, IconButton, Paper, Typography, Box, Container, CircularProgress } from '@mui/material';
-import { Edit, Delete, Visibility } from '@mui/icons-material';
-
 function Notes() {
     const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -16,13 +12,12 @@ function Notes() {
     const { getAccessToken } = useContext(AuthContext);
     const navigate = useNavigate();
     const token = getAccessToken();
-    // Redirect to login page if no token exists
 
     if (!token) {
         navigate('/signin');
     }
+
     useEffect(() => {
-        
         const fetchNotes = async () => {
             try {
                 const response = await axios.get(`${server_uri}/api/notes/notes/`, {
@@ -37,7 +32,6 @@ function Notes() {
                 setLoading(false);
             }
         };
-
         fetchNotes();
     }, [token]);
 
@@ -46,15 +40,15 @@ function Notes() {
     };
 
     const handleCreateNote = () => {
-        navigate('/note/create'); // Navigate to the Create Note page
+        navigate('/note/create');
     };
 
     const handleViewNote = (id) => {
-        navigate(`/note/view/${id}`); // Navigate to the Note Detail page
+        navigate(`/note/view/${id}`);
     };
 
     const handleEditNote = (id) => {
-        navigate(`/note/edit/${id}`); // Navigate to the Edit Note page
+        navigate(`/note/edit/${id}`);
     };
 
     const handleDeleteNote = async (id) => {
@@ -64,88 +58,126 @@ function Notes() {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            setNotes(notes.filter((note) => note.id !== id)); // Remove deleted note from the list
-            if(response?.status === 204){
-                enqueueSnackbar(`Note deleted successfully!`, {variant: 'success'});
+            setNotes(notes.filter((note) => note.id !== id));
+            if (response?.status === 204) {
+                enqueueSnackbar(`Note deleted successfully!`, { variant: 'success' });
             }
         } catch (err) {
             console.error('Error deleting note:', err);
         }
     };
 
-    // Filter notes by search term
-    const filteredNotes = notes.filter((note) => 
-        note.title.toLowerCase().includes(search.toLowerCase()) || 
+    const filteredNotes = notes.filter((note) =>
+        note.title.toLowerCase().includes(search.toLowerCase()) ||
         note.description.toLowerCase().includes(search.toLowerCase())
     );
 
     return loading ? (
-        
-        <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}><CircularProgress /></Box>
+        <div>Loading...</div>
     ) : (
-        <Container sx={{py: 5}}>
-            {/* Search and Create New Note Button */}
-            <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-                <TextField 
-                    label="Search Notes" 
-                    variant="outlined" 
-                    value={search}
-                    onChange={handleSearchChange}
-                    sx={{ width: 600 }}
-                />
-                <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleCreateNote}
-                    sx={{ marginLeft: 2 }}
-                >
-                    Create New Note
-                </Button>
-            </Box>
+        <>
+            <style>
+                {`
+                    .container {
+                        padding: 20px;
+                    }
+                    .header {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 20px;
+                    }
+                    .search-input {
+                        width: 60%;
+                        padding: 10px;
+                        font-size: 16px;
+                    }
+                    .create-button {
+                        padding: 10px 20px;
+                        background-color: #007bff;
+                        color: #fff;
+                        border: none;
+                        cursor: pointer;
+                    }
+                    .table {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+                    .th, .td {
+                        padding: 10px;
+                        border: 1px solid #ddd;
+                    }
+                    .th {
+                        background-color: #f4f4f4;
+                        text-align: left;
+                    }
+                    .actions {
+                        display: flex;
+                        gap: 10px;
+                    }
+                    .action-button {
+                        padding: 5px 10px;
+                        border: none;
+                        cursor: pointer;
+                    }
+                    .view-button {
+                        background-color: #28a745;
+                        color: #fff;
+                    }
+                    .edit-button {
+                        background-color: #ffc107;
+                        color: #fff;
+                    }
+                    .delete-button {
+                        background-color: #ff4d4d;
+                        color: #fff;
+                    }
+                `}
+            </style>
 
-            {/* Table */}
-            <TableContainer component={Paper}>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell>
-                                Title
-                            </TableCell>
-                            <TableCell>Description</TableCell>
-                            <TableCell>Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            {/* React component JSX */}
+            <div className="container">
+                <div className="header">
+                    <input
+                        type="text"
+                        className="search-input"
+                        placeholder="Search Notes"
+                        value={search}
+                        onChange={handleSearchChange}
+                    />
+                    <button className="create-button" onClick={handleCreateNote}>
+                        Create New Note
+                    </button>
+                </div>
+                <table className="table">
+                    <thead>
+                        <tr>
+                            <th className="th">Title</th>
+                            <th className="th">Description</th>
+                            <th className="th">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {filteredNotes.map((note) => (
-                            <TableRow key={note.id}>
-                                <TableCell>{note.title}</TableCell>
-                                <TableCell sx={{maxWidth: 1000, width: 500}}>{note.description}</TableCell>
-                                <TableCell>
-                                    <IconButton
-                                        color="primary"
-                                        onClick={() => handleViewNote(note.id)}
-                                    >
-                                        <Visibility />
-                                    </IconButton>
-                                    <IconButton
-                                        color="secondary"
-                                        onClick={() => handleEditNote(note.id)}
-                                    >
-                                        <Edit />
-                                    </IconButton>
-                                    <IconButton
-                                        color="error"
-                                        onClick={() => handleDeleteNote(note.id)}
-                                    >
-                                        <Delete />
-                                    </IconButton>
-                                </TableCell>
-                            </TableRow>
+                            <tr key={note.id}>
+                                <td className="td">{note.title}</td>
+                                <td className="td">{note.description}</td>
+                                <td className="td actions">
+                                    <button className="action-button view-button" onClick={() => handleViewNote(note.id)}>
+                                        View
+                                    </button>
+                                    <button className="action-button edit-button" onClick={() => handleEditNote(note.id)}>
+                                        Edit
+                                    </button>
+                                    <button className="action-button delete-button" onClick={() => handleDeleteNote(note.id)}>
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
                         ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Container>
+                    </tbody>
+                </table>
+            </div>
+        </>
     );
 }
 
